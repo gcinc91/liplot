@@ -1,0 +1,7 @@
+{
+  "name": "liplot",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
