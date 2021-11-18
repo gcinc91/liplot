@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DetailPage } from '../detail/detail.page';
 
 import { HomePage } from './home.page';
 
@@ -7,6 +8,9 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage
+  }, {
+    path: ':id',
+    component: DetailPage
   }
 ];
 
@@ -14,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule { }
