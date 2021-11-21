@@ -22,4 +22,15 @@
         </ion-toolbar>
     </ion-header>
 
+    <ion-list>
+        <ion-item mode="ios" *ngFor="let item of item_list;trackBy: trackByFn">
+            <ion-label >{{item}}</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-input *ngIf="addItem == true" value="add item" [(ngModel)]="item_name"></ion-input>
+    <ion-button *ngIf="addItem == false" expand="full" (click)="setItem()">add Item</ion-button>
+    <ion-button *ngIf="addItem == true" expand="full" (click)="addNewItem()">Insert</ion-button>
+    <ion-button color="danger" (click)="clearProjects()">Delete All</ion-button>
+
 </ion-content>

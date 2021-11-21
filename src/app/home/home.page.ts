@@ -40,7 +40,7 @@ export class HomePage {
 
   async addNewProject(){
     this.addProject = false
-    await this.data.setValue(this.pro_name)
+    await this.data.setProject(this.pro_name)
     this.pro_name = ''
     await this.updateProjectList()
   }

@@ -13,7 +13,6 @@ export class DataService {
 
     async init() {
         const storage = await this.storage.create();
-        console.log('contructor ', storage)
         this._storage = storage;
     }
 
@@ -21,18 +20,29 @@ export class DataService {
         await this._storage.clear();
     }
 
-    async setValue(pro_name) {
+    async setProject(pro_name) {
         let pro = {
             name: pro_name,
             id: uuidv4(),
             createAt: Date.now()
         }
-        await this._storage.set(pro.name, pro);
+        await this._storage.set(pro.id, pro);
     }
 
-    async getValue(pro) {
-        const value = await this._storage.get(pro.name);
-        return value
+    async setItem(id, item) {
+        let pro = await this._storage.get(id);
+        pro.items = pro.items || []
+        console.log('Whatss ',pro)
+        pro.items = [
+            ...pro.items,
+            item
+        ]
+        console.log('como puede ser ', pro)
+        await this._storage.set(pro.id, pro);
+    }
+
+    async getPro(id) {
+        return await this._storage.get(id);
     }
 
     async getProjects() {
@@ -40,11 +50,14 @@ export class DataService {
         await this._storage.forEach((key, value, index) => {
             list.push({ value, key })
         });
+        console.log(list)
         return list.sort((x, y) => x.key.createAt - y.key.createAt).map(x => x.key)
-        // return await this._storage.keys()
     }
 
-    // public getProjectById(id: number): Project {
-    //   return this.projects[id];
+    // async getItemsByProId() {
+    //     let list = []
+    //     await this._storage.get()
+    //     return list.sort((x, y) => x.key.createAt - y.key.createAt).map(x => x.key)
     // }
+
 }
