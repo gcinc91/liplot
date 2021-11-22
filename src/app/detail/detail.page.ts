@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { Project } from '../services/DTOs/projects.dto'
+import { Project } from '../DTOs/projects.dto'
 
 @Component({
   selector: 'app-detail',

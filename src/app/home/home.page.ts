@@ -11,6 +11,7 @@ export class HomePage {
   addProject = false
   project_list = []
   pro_name = ''
+  edit = false
 
   refresh(ev) {
     setTimeout(() => {
@@ -45,4 +46,11 @@ export class HomePage {
     await this.updateProjectList()
   }
 
+  async editing(){
+    this.edit = !this.edit
+  }
+
+  async sayHello(){
+    console.log('hello!')
+  }
 }
