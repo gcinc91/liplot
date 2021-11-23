@@ -5,13 +5,16 @@ import { FormsModule } from '@angular/forms';
 
 import { DetailPage } from './detail.page';
 import { DetailPageRoutingModule } from './detail-routing.module';
+import { Popover } from '../components/popover/popover.component';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailPageRoutingModule
+    DetailPageRoutingModule,
+    ComponentsModule,
   ],
   declarations: [DetailPage]
 })

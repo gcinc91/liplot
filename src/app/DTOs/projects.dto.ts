@@ -1,12 +1,12 @@
 
-enum Status {
+export enum Status {
     active,
-    deleted
+    deleted,
 }
 
 export class Item {
     name: string;
-    createAt: Date;
+    createAt: number;
     id: number;
     status: Status
 }
@@ -15,7 +15,8 @@ export class Project {
     name: string;
     description?: string;
     date?: string;
-    createAt: Date;
+    createAt: number;
     id: string;
-    items?: Item[]
+    items?: Item[];
+    status: Status;
 }

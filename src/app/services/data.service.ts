@@ -1,6 +1,7 @@
-import { ComponentFactoryResolver, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { v4 as uuidv4 } from 'uuid';
+import { Project, Status } from '../DTOs/projects.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -21,10 +22,11 @@ export class DataService {
     }
 
     async setProject(pro_name) {
-        let pro = {
+        let pro: Project = {
             name: pro_name,
             id: uuidv4(),
-            createAt: Date.now()
+            createAt: Date.now(),
+            status: Status.active
         }
         await this._storage.set(pro.id, pro);
     }
@@ -32,7 +34,6 @@ export class DataService {
     async setItem(id, item) {
         let pro = await this._storage.get(id);
         pro.items = pro.items || []
-        console.log('Whatss ',pro)
         pro.items = [
             ...pro.items,
             item
@@ -45,19 +46,21 @@ export class DataService {
         return await this._storage.get(id);
     }
 
+    async deleteProByID(id) {
+        let pro = await this._storage.get(id);
+        pro.status = Status.deleted
+    }
+
     async getProjects() {
         let list = []
-        await this._storage.forEach((key, value, index) => {
+        await this._storage.forEach((key, value) => {
             list.push({ value, key })
         });
         console.log(list)
-        return list.sort((x, y) => x.key.createAt - y.key.createAt).map(x => x.key)
+        return list
+            .filter(x => x.key.status == Status.active)
+            .sort((x, y) => x.key.createAt - y.key.createAt)
+            .map(x => x.key)
     }
-
-    // async getItemsByProId() {
-    //     let list = []
-    //     await this._storage.get()
-    //     return list.sort((x, y) => x.key.createAt - y.key.createAt).map(x => x.key)
-    // }
 
 }

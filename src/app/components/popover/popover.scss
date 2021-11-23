@@ -1,0 +1,23 @@
+.my-custom-class .popover-content {
+    background: red;
+    width: 300px;
+}
+
+.popover-content {
+    background: red;
+}
+
+.modal {
+    background: red !important;
+}
+.center {
+    text-align: center;
+}
+
+.btn-yes {
+    color: red;
+}
+
+ion-content {
+    --overflow: hidden;
+}

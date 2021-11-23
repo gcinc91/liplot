@@ -31,16 +31,17 @@
            
             <ion-item mode="ios">
                 <ion-label [routerLink]="['/projects', pro.id]">{{pro.name}}</ion-label>
-                <!-- <ion-icon *ngIf="edit == true" color="danger" fill="solid" name="remove-outline"></ion-icon> -->
             </ion-item>
 
             <ion-item-options side="end">
-                <ion-item-option color="danger" expandable>
+                <ion-item-option (click)="presentPopover(pro.id)" color="danger" expandable>
                     Delete
                 </ion-item-option>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
+    <!-- <ion-button color="primary" (click)="presentPopover()">poop-uup</ion-button> -->
+
 
     <ion-input *ngIf="addProject == true" value="add project" [(ngModel)]="pro_name"></ion-input>
     <ion-button *ngIf="addProject == false" expand="full" (click)="setProject()">add project</ion-button>
