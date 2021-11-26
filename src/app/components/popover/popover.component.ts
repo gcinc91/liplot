@@ -7,25 +7,23 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: 'popover.html',
   styleUrls: ['./popover.scss']
 })
-export class Popover implements OnInit {
+export class Popover {
   constructor(
     private data: DataService,
     private popover: PopoverController,
   ) { }
   id: string
-
-
-  ngOnInit() {
-    //print 123
-    console.log('teh id', this.id);
-  }
+  proId: string
+  name: string
+  type: string
 
   noFunction() {
-    console.log('On dismisss')
     this.popover.dismiss();
   }
 
-  deleteFunction(id) {
-    console.log('yes bobrorao')
+  async deleteFunction() {
+
+    await this.data.changeProStatus(this.proId, this.type, this.id)
+    this.popover.dismiss();
   }
 }

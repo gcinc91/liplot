@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Popover } from '../components/popover/popover.component';
+import { Status } from '../DTOs/projects.dto';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -9,14 +10,17 @@ import { DataService } from '../services/data.service';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    constructor(
-        private data: DataService,
-        private popoverController: PopoverController
-    ) { }
+
+    @ViewChild('slideOps') slideOps
     addProject = false
     project_list = []
     pro_name = ''
     edit = false
+    
+    constructor(
+        private data: DataService,
+        private popoverController: PopoverController
+    ) { }
 
     refresh(ev) {
         setTimeout(() => {
@@ -40,7 +44,7 @@ export class HomePage {
         return this.project_list;
     }
     async clearProjects() {
-        await this.data.clear()
+        await this.data.deleteAllProjects()
         await this.updateProjectList()
     }
 
@@ -53,6 +57,9 @@ export class HomePage {
 
     async editing() {
         this.edit = !this.edit
+        this.edit ?
+            await this.slideOps.open() :
+            await this.slideOps.close()
     }
 
     async presentPopover(id) {
@@ -63,9 +70,11 @@ export class HomePage {
             componentProps: { id }
         });
         await popover.present();
+        await popover.onDidDismiss().then(async () => {
+            await this.updateProjectList()
+        });
     }
-
-
+    
     async sayHello() {
         console.log('hello!')
     }

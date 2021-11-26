@@ -9,8 +9,6 @@
 <ion-content [fullscreen]="true">
     <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
         <ion-refresher-content refreshingSpinner="circles">
-
-
         </ion-refresher-content>
     </ion-refresher>
 
@@ -26,25 +24,23 @@
     </ion-header>
 
     <ion-list>
+        <ion-item-sliding *ngFor="let pro of project_list;trackBy: trackByFn" #slideOps>
 
-        <ion-item-sliding *ngFor="let pro of project_list;trackBy: trackByFn">
-           
             <ion-item mode="ios">
                 <ion-label [routerLink]="['/projects', pro.id]">{{pro.name}}</ion-label>
             </ion-item>
 
-            <ion-item-options side="end">
+            <ion-item-options side="end" (ionSwipe)="presentPopover(pro.id)">
                 <ion-item-option (click)="presentPopover(pro.id)" color="danger" expandable>
                     Delete
                 </ion-item-option>
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
-    <!-- <ion-button color="primary" (click)="presentPopover()">poop-uup</ion-button> -->
-
 
     <ion-input *ngIf="addProject == true" value="add project" [(ngModel)]="pro_name"></ion-input>
     <ion-button *ngIf="addProject == false" expand="full" (click)="setProject()">add project</ion-button>
     <ion-button *ngIf="addProject == true" expand="full" (click)="addNewProject()">Insert</ion-button>
     <ion-button color="danger" (click)="clearProjects()">Delete All</ion-button>
+    <ion-button color="tertiary" [routerLink]="['/trash']">Go Trash</ion-button>
 </ion-content>

@@ -17,8 +17,14 @@ export class DataService {
         this._storage = storage;
     }
 
-    async clear() {
+    async deleteAllProjects() {
         await this._storage.clear();
+    }
+
+    async deleteAllItems(proId) {
+        let pro = await this._storage.get(proId);
+        pro.items = []
+        await this._storage.set(pro.id, pro);
     }
 
     async setProject(pro_name) {
@@ -31,14 +37,20 @@ export class DataService {
         await this._storage.set(pro.id, pro);
     }
 
-    async setItem(id, item) {
+    async setItem(id, itemName) {
         let pro = await this._storage.get(id);
         pro.items = pro.items || []
+        let item = {
+            name: itemName,
+            createAt: Date.now(),
+            id: uuidv4(),
+            status: Status.active
+        }
         pro.items = [
             ...pro.items,
             item
         ]
-        console.log('como puede ser ', pro)
+
         await this._storage.set(pro.id, pro);
     }
 
@@ -47,18 +59,38 @@ export class DataService {
     }
 
     async deleteProByID(id) {
-        let pro = await this._storage.get(id);
-        pro.status = Status.deleted
+        await this._storage.remove(id);
     }
 
-    async getProjects() {
+    async removeProById(id) {
+        let pro = await this._storage.get(id);
+        pro.status = Status.remove
+    }
+
+    async changeProStatus(proId, type, id?) {
+
+        let pro = await this._storage.get(proId);
+        if (type != 'item') {
+            pro.status = Status.remove
+            return await this._storage.set(id, pro)
+        }
+        let item = pro.items.filter(x => x.id == id)
+        let index = pro.items.findIndex(x => x.id === id)
+        pro.items[index] = {
+            ...item,
+            status: Status.remove
+        }
+        await this._storage.set(pro.id, pro);
+    }
+
+    async getProjects(filter?) {
         let list = []
         await this._storage.forEach((key, value) => {
             list.push({ value, key })
         });
         console.log(list)
         return list
-            .filter(x => x.key.status == Status.active)
+            .filter(x => x.key.status == (filter || Status.active))
             .sort((x, y) => x.key.createAt - y.key.createAt)
             .map(x => x.key)
     }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailPage } from '../detail/detail.page';
+import { TrashComponent } from '../trash/trash.component';
 
 import { HomePage } from './home.page';
 

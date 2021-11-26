@@ -1,7 +1,7 @@
 
 export enum Status {
     active,
-    deleted,
+    remove,
 }
 
 export class Item {

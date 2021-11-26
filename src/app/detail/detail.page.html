@@ -14,23 +14,31 @@
 
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">
-                <ion-label [routerLink]="['/projects']" >
-                    <ion-icon name="chevron-back-outline"></ion-icon> Liplot detail 
-                </ion-label>
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref='/'></ion-back-button>
+            </ion-buttons>
+            <ion-title size="medium">
+                Liplot detail
             </ion-title>
         </ion-toolbar>
     </ion-header>
 
     <ion-list>
-        <ion-item mode="ios" *ngFor="let item of item_list;trackBy: trackByFn">
-            <ion-label >{{item}}</ion-label>
-        </ion-item>
+        <ion-item-sliding *ngFor="let item of item_list;trackBy: trackByFn" #slideOps>
+            <ion-item mode="ios">
+                <ion-label>{{item.name}}</ion-label>
+            </ion-item>
+            <ion-item-options side="end" (ionSwipe)="presentPopover(item.id,item.name,'item')">
+                <ion-item-option (click)="presentPopover(item.id, item.name, 'item')" color="danger" expandable>
+                    Delete
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
     </ion-list>
 
     <ion-input *ngIf="addItem == true" value="add item" [(ngModel)]="item_name"></ion-input>
     <ion-button *ngIf="addItem == false" expand="full" (click)="setItem()">add Item</ion-button>
     <ion-button *ngIf="addItem == true" expand="full" (click)="addNewItem()">Insert</ion-button>
-    <ion-button color="danger" (click)="clearProjects()">Delete All</ion-button>
+    <ion-button color="danger" (click)="clearItems()">Delete All Items</ion-button>
 
 </ion-content>

@@ -7,6 +7,8 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { DetailPageModule } from '../detail/detail.module';
 import { ComponentsModule } from '../components/components.module';
+import { TrashPageModule } from '../trash/trash.module';
+
 
 @NgModule({
   imports: [

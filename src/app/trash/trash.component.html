@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Liplot
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content refreshingSpinner="circles">
+
+
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref='/'></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        Liplot
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item mode="ios" *ngFor="let pro of project_list;trackBy: trackByFn">
+      <ion-label> {{pro.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

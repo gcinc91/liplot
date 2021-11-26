@@ -3,19 +3,18 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 
-import { DetailPage } from './detail.page';
-import { DetailPageRoutingModule } from './detail-routing.module';
 import { ComponentsModule } from '../components/components.module';
+import { TrashComponent } from './trash.component';
+import { TrashPageRoutingModule } from './trash-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailPageRoutingModule,
     ComponentsModule,
-    ComponentsModule,
+    TrashPageRoutingModule
   ],
-  declarations: [DetailPage]
+  declarations: [TrashComponent]
 })
-export class DetailPageModule { }
+export class TrashPageModule { }
