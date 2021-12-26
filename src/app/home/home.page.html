@@ -38,7 +38,7 @@
         </ion-item-sliding>
     </ion-list>
 
-    <ion-input *ngIf="addProject == true" value="add project" [(ngModel)]="pro_name"></ion-input>
+    <ion-input *ngIf="addProject == true" #inputToAdd value="add project" [(ngModel)]="pro_name"></ion-input>
     <ion-button *ngIf="addProject == false" expand="full" (click)="setProject()">add project</ion-button>
     <ion-button *ngIf="addProject == true" expand="full" (click)="addNewProject()">Insert</ion-button>
     <ion-button color="danger" (click)="clearProjects()">Delete All</ion-button>

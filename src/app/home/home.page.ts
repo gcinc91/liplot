@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Popover } from '../components/popover/popover.component';
-import { Status } from '../DTOs/projects.dto';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -12,14 +11,16 @@ import { DataService } from '../services/data.service';
 export class HomePage {
 
     @ViewChild('slideOps') slideOps
+    @ViewChild('inputToAdd') inputToAdd;
     addProject = false
     project_list = []
     pro_name = ''
     edit = false
-    
+
     constructor(
         private data: DataService,
-        private popoverController: PopoverController
+        private popoverController: PopoverController,
+        private cdRef: ChangeDetectorRef
     ) { }
 
     refresh(ev) {
@@ -38,6 +39,8 @@ export class HomePage {
 
     async setProject() {
         this.addProject = true
+        this.cdRef.detectChanges();
+        this.inputToAdd.el.setFocus()
     }
 
     trackByFn() {
@@ -74,8 +77,5 @@ export class HomePage {
             await this.updateProjectList()
         });
     }
-    
-    async sayHello() {
-        console.log('hello!')
-    }
+
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Project, Status } from '../DTOs/projects.dto'
@@ -15,7 +15,9 @@ export class DetailPage {
     private data: DataService,
     private route: ActivatedRoute,
     private popoverController: PopoverController,
+    private cdRef: ChangeDetectorRef,
   ) { }
+  @ViewChild('inputToAdd') inputToAdd;
   addItem = false
   item_list = []
   item_name = ''
@@ -39,14 +41,15 @@ export class DetailPage {
   async updateItemList() {
     this.item_list = (
       await this.data.getPro(this.id))
-      .items
-      .filter(x => x.status == Status.active
+      .items?.filter(x => x.status == Status.active
       )
     console.log('items', this.item_list)
   }
 
   async setItem() {
     this.addItem = true
+    this.cdRef.detectChanges();
+    this.inputToAdd.el.setFocus()
   }
 
   trackByFn() {

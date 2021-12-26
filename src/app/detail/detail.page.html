@@ -1,7 +1,10 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref='/'></ion-back-button>
+        </ion-buttons>
         <ion-title>
-            Liplot
+            Liplot detail
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -14,12 +17,12 @@
 
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-buttons slot="start">
-                <ion-back-button defaultHref='/'></ion-back-button>
-            </ion-buttons>
-            <ion-title size="medium">
-                Liplot detail
+            <ion-title vertical="center" size="large">
+                Liplot 
             </ion-title>
+            <ion-button color="primary" fill="solid" slot="end" (click)="editing()">
+                <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
         </ion-toolbar>
     </ion-header>
 
@@ -36,7 +39,7 @@
         </ion-item-sliding>
     </ion-list>
 
-    <ion-input *ngIf="addItem == true" value="add item" [(ngModel)]="item_name"></ion-input>
+    <ion-input *ngIf="addItem == true" #inputToAdd value="add item" [(ngModel)]="item_name"></ion-input>
     <ion-button *ngIf="addItem == false" expand="full" (click)="setItem()">add Item</ion-button>
     <ion-button *ngIf="addItem == true" expand="full" (click)="addNewItem()">Insert</ion-button>
     <ion-button color="danger" (click)="clearItems()">Delete All Items</ion-button>

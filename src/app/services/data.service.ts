@@ -88,7 +88,6 @@ export class DataService {
         await this._storage.forEach((key, value) => {
             list.push({ value, key })
         });
-        console.log(list)
         return list
             .filter(x => x.key.status == (filter || Status.active))
             .sort((x, y) => x.key.createAt - y.key.createAt)
